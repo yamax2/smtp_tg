@@ -1,6 +1,6 @@
-FROM golang:1.13-alpine3.10 AS builder
+FROM golang:1.13 AS builder
 
-RUN apk add --no-cache git ca-certificates
+RUN apt install git
 
 WORKDIR /app
 
@@ -18,15 +18,15 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
 
 
 
-FROM alpine:3.10
+FROM ubuntu
 
-RUN apk add --no-cache ca-certificates
+# RUN apt install ca-certificates
 
 COPY --from=builder /app/smtp_to_telegram /smtp_to_telegram
 
-USER daemon
+# USER daemon
 
 ENV ST_SMTP_LISTEN "0.0.0.0:2525"
 EXPOSE 2525
 
-ENTRYPOINT ["/smtp_to_telegram"]
+# ENTRYPOINT ["/smtp_to_telegram"]
