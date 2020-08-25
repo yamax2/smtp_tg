@@ -130,7 +130,7 @@ func SmtpStart(
 	cfg.Servers = append(cfg.Servers, sc)
 
 	bcfg := backends.BackendConfig{
-		"save_workers_size":  3,
+		"save_workers_size":  1,
 		"save_process":       "HeadersParser|Header|Hasher|TelegramBot",
 		"log_received_mails": true,
 		"primary_mail_host":  smtpConfig.smtpPrimaryHost,
